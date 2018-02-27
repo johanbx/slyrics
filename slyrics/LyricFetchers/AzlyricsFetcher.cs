@@ -7,31 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace slyrics
+namespace slyrics.LyricFetchers
 {
     // illegal take on azlyrics :D
     public class AzlyricsFetcher : RequiredConstructor<Track>, ILyricFetcher
     {
         StringBuilder _ErrorLog;
         StringBuilder _Query;
-        Track track;
+        Track _Track;
 
         public AzlyricsFetcher (Track track_) : base (track_)
         {
-            track = track_;
+            _Track = track_;
             _ErrorLog = new StringBuilder();
             _Query = new StringBuilder();
+        }
+
+        public Track Track
+        {
+            get { return _Track; }
+            set { _Track = value; }
         }
 
         public StringBuilder ErrorLog {
             get { return _ErrorLog; }
             set { _ErrorLog = value; }
-        }
-
-        public StringBuilder Query
-        {
-            get { return _Query; }
-            set { _Query = value; }
         }
 
         public string PopLog ()
@@ -43,62 +43,46 @@ namespace slyrics
 
         public string Lyrics ()
         {
-            string address = ExtractLyricAddress();
-            string lyrics = ExtractLyrics(address);
-            return FinalizeLyrics(lyrics);
-        }
-
-        public string ExtractLyricAddress ()
-        {
+            StringBuilder query = new StringBuilder();
             string xpath_extract_address = "//table[contains(@class, 'table table-condensed')]/tr/td[contains(@class, 'text-left visitedlyr')]//a";
-
-            Query.Clear();
-            Query.Append("https://search.azlyrics.com/search.php?q=");
-            Query.Append(track.TrackResource.Name.Replace(' ', '+'));
-            Query.Append("+by+");
-            Query.Append(track.ArtistResource.Name.Replace(' ', '+'));
-
-            ErrorLog.AppendLine("Tried to fetch lyric with query: ");
-            ErrorLog.AppendLine(Uri.EscapeUriString(Query.ToString()));
-
-            HtmlWeb web = new HtmlWeb();
-            var htmlDoc = web.Load(Uri.EscapeUriString(Query.ToString()));
-            var node = htmlDoc.DocumentNode.SelectSingleNode(xpath_extract_address);
-
-            ErrorLog.AppendLine("Tried to find value attribute for node: ");
-            ErrorLog.AppendLine(node.Name);
-
-            string address = node.Attributes["href"].Value;
-
-            ErrorLog.AppendLine("The address found for the lyric was: ");
-            ErrorLog.AppendLine(address);
-
-            return address;
-        }
-
-        public string ExtractLyrics (string address)
-        {
             string xpath_extract_lyrics = "//div[contains(@class, 'col-xs-12 col-lg-8 text-center')]/div[not(@class)]";
-
-            ErrorLog.AppendLine("Loading the page: ");
-            ErrorLog.AppendLine(address);
-
+            string address;
+            string lyrics;
             HtmlWeb web = new HtmlWeb();
-            var htmlDoc = web.Load(address);
+            HtmlNode node;
 
-            var node = htmlDoc.DocumentNode.SelectSingleNode(xpath_extract_lyrics);
+            // Build search query
+            query.Append("https://search.azlyrics.com/search.php?q=");
+            query.Append(_Track.TrackResource.Name.Replace(' ', '+'));
+            query.Append("+by+");
+            query.Append(_Track.ArtistResource.Name.Replace(' ', '+'));
 
-            ErrorLog.AppendLine(node.ToString());
+            // Try to fetch address for lyrics by using the search
+            try
+            {
+                address = Uri.EscapeUriString(query.ToString());
+                node = web.Load(address).DocumentNode.SelectSingleNode(xpath_extract_address);
+            } catch
+            {
+                throw new HtmlWebException("Could not fetch the address for the lyrics on Azlyrics.com");
+            }
+            
 
-            ErrorLog.AppendLine("The node for the lyrics is: ");
-            ErrorLog.AppendLine(node.Name);
+            // Once we fond the address, try to fetch the lyrics
+            try
+            {
+                address = node.Attributes["href"].Value;
+                node = web.Load(address).DocumentNode.SelectSingleNode(xpath_extract_lyrics);
+            }
+            catch
+            {
+                throw new HtmlWebException("Could not find any lyrics with Azlyrics.com");
+            }
 
-            return node.InnerText.Trim();
-        }
+            // Tidy upp the lyrics
+            lyrics = HtmlEntityTranslator.Descape(node.InnerText.Trim());
 
-        public string FinalizeLyrics (string lyrics)
-        {
-            return HtmlEntityTranslator.Descape(lyrics);
+            return lyrics;
         }
     }
 }

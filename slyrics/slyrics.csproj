@@ -84,10 +84,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DebugHelper.cs" />
+    <Compile Include="HelpFunctions.cs" />
     <Compile Include="LyricFetchers\AzlyricsFetcher.cs" />
     <Compile Include="HtmlEntityTranslator.cs" />
     <Compile Include="LyricFetcher.cs" />
-    <Compile Include="LyricFetchers\wwwLyricsFetcher.cs" />
+    <Compile Include="LyricFetchers\WwwLyricsFetcher.cs" />
     <Compile Include="SettingBindingExtension.cs" />
     <Compile Include="SpotifyLyricHandler.cs" />
     <Page Include="MainWindow.xaml">

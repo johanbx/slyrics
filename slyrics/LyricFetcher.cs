@@ -15,16 +15,10 @@ namespace slyrics
     {
         StringBuilder ErrorLog { get; set; }
 
-        StringBuilder Query { get; set; }
+        Track Track { get; set; }
 
         string PopLog ();
 
         string Lyrics ();
-
-        string ExtractLyricAddress ();
-
-        string ExtractLyrics (string address);
-
-        string FinalizeLyrics (string lyrics);
     }
 }
