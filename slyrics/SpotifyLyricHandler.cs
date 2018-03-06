@@ -86,6 +86,7 @@ namespace slyrics
                 try
                 {
                     lyrics.Append(LyricFetcher.Lyrics());
+                    break;
                 }
                 catch (HtmlWebException ex)
                 {

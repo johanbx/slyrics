@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace slyrics.LyricFetchers
 {
-    // illegal take on azlyrics :D
-    public class AzlyricsFetcher : RequiredConstructor<Track>, ILyricFetcher
+    class AzlyricsFetcher : RequiredConstructor<Track>, ILyricFetcher
     {
         StringBuilder _ErrorLog;
         StringBuilder _Query;
@@ -29,7 +28,8 @@ namespace slyrics.LyricFetchers
             set { _Track = value; }
         }
 
-        public StringBuilder ErrorLog {
+        public StringBuilder ErrorLog
+        {
             get { return _ErrorLog; }
             set { _ErrorLog = value; }
         }
@@ -64,7 +64,7 @@ namespace slyrics.LyricFetchers
                 node = web.Load(address).DocumentNode.SelectSingleNode(xpath_extract_address);
             } catch
             {
-                throw new HtmlWebException("Could not fetch the address for the lyrics on Azlyrics.com");
+                throw new HtmlWebException(string.Format("Could not fetch the address for the lyrics from {0}", query.ToString()));
             }
             
 
@@ -76,7 +76,7 @@ namespace slyrics.LyricFetchers
             }
             catch
             {
-                throw new HtmlWebException("Could not find any lyrics with Azlyrics.com");
+                throw new HtmlWebException(string.Format("Could not fetch the address for the lyrics from {0}", address.ToString()));
             }
 
             // Tidy upp the lyrics

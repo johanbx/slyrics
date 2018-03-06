@@ -47,6 +47,8 @@ namespace slyrics
             Spotify = new SpotifyLyricHandler(spotify_connect, this);
             
             UpdateUI();
+            lyricsDataSetTableAdapters.LyricsTableAdapter asd = new lyricsDataSetTableAdapters.LyricsTableAdapter();
+            asd.Insert("namn", "artist", "text");
         }
 
         internal SpotifyLyricHandler Spotify { get => _spotify; set => _spotify = value; }
