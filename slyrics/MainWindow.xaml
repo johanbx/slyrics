@@ -11,15 +11,19 @@
         Width="{my:SettingBinding Width}"
         Left="{my:SettingBinding Left}"
         Top="{my:SettingBinding Top}">
-    <ScrollViewer Margin="0">
-        <TextBox 
-            Background="Transparent" 
-            BorderThickness="0"
-            IsReadOnly="True"
-            Name="textArea" 
-            Margin="10" 
-            TextAlignment="Center" 
-            TextWrapping="Wrap" 
-            Text="Waiting for Spotify to start..."/>
-    </ScrollViewer>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Left">
+            <Button Background="Yellow" Click="Button_Click">Change Lyrics</Button>
+        </DockPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0">
+            <TextBox 
+                Background="Transparent" 
+                BorderThickness="0"
+                IsReadOnly="True"
+                Name="textArea" 
+                Margin="10 0 10 10" 
+                TextAlignment="Center"
+                Text="Waiting for Spotify to start..."/>
+        </ScrollViewer>
+    </DockPanel>
 </Window>

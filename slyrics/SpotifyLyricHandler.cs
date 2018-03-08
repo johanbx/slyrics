@@ -86,7 +86,7 @@ namespace slyrics
                     lyrics.Append(LyricFetcher.Lyrics());
                     break;
                 }
-                catch (HtmlWebException ex)
+                catch (Exception ex)
                 {
                     lyrics.AppendLine(STRING_LYRIC_FETCH_FAIL_MSG);
                     if (DebugHelper.InDebug())

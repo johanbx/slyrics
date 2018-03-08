@@ -75,5 +75,10 @@ namespace slyrics
                 textArea.Text = Spotify.currentLyrics;
             }));
         }
+
+        private void Button_Click (object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("Hello world");
+        }
     }
 }

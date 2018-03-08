@@ -44,40 +44,56 @@ namespace slyrics.LyricFetchers
         public string Lyrics ()
         {
             List<StringBuilder> queries = new List<StringBuilder>();
+
+            StringBuilder wholeNameQuery = new StringBuilder();
+            StringBuilder partNameQuery = new StringBuilder();
+            StringBuilder onlySongName = new StringBuilder();
+            StringBuilder partNameNoArtistQuery = new StringBuilder();
+
             string baseQuery = "https://search.azlyrics.com/search.php?q=";
             string finalLyrics = null;
             string finalErrorMsg = null;
 
             // Search query with whole name
-            StringBuilder wholeName = new StringBuilder();
-            wholeName.Append(baseQuery);
-            wholeName.Append(_Track.TrackResource.Name.Replace(' ', '+'));
-            wholeName.Append("+by+");
-            wholeName.Append(_Track.ArtistResource.Name.Replace(' ', '+'));
-            queries.Add(wholeName);
+            wholeNameQuery.Append(baseQuery);
+            wholeNameQuery.Append(_Track.TrackResource.Name.Replace(' ', '+'));
+            wholeNameQuery.Append("+by+");
+            wholeNameQuery.Append(_Track.ArtistResource.Name.Replace(' ', '+'));
 
             // Search query with the part before '-'
             int indexOfSplitChar = _Track.TrackResource.Name.LastIndexOf(" -");
             if (indexOfSplitChar != -1)
             {
-                StringBuilder partName = new StringBuilder();
-                partName.Append(baseQuery);
-                partName.Append(_Track.TrackResource.Name.Substring(0, indexOfSplitChar).Replace(' ', '+'));
-                partName.Append("+by+");
-                partName.Append(_Track.ArtistResource.Name.Replace(' ', '+'));
-                queries.Add(partName);
+                
+                string partName = _Track.TrackResource.Name.Substring(0, indexOfSplitChar);
+                partNameQuery.Append(baseQuery);
+                partNameQuery.Append(partName.Replace(' ', '+'));
+                partNameQuery.Append("+by+");
+                partNameQuery.Append(_Track.ArtistResource.Name.Replace(' ', '+'));
+
+                // Seach query with the part before '-' and with no artist (can get bad result)
+                //TODO try have this as a last resort when fetching lyrics from other sources
+                partNameNoArtistQuery.Append(baseQuery);
+                partNameNoArtistQuery.Append(partName.Replace(' ', '+'));
             }
 
             // Search without artist (can get bad result)
-            //TODO try having this as a last resort
-            StringBuilder onlySongName = new StringBuilder();
+            //TODO try have this as a last resort when fetching lyrics from other sources
             onlySongName.Append(baseQuery);
             onlySongName.Append(_Track.TrackResource.Name.Replace(' ', '+'));
+
+            // The order of the searches
+            queries.Add(wholeNameQuery);
+            queries.Add(partNameQuery);
             queries.Add(onlySongName);
+            queries.Add(partNameNoArtistQuery);
 
             // Loop through our queries and try to find a result
             foreach (StringBuilder query in queries)
             {
+                if (query.Length < 1)
+                    continue;
+
                 try
                 {
                     Debug.WriteLine(string.Format("Searching with query: {0}", query));
