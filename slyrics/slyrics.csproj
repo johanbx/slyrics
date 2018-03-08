@@ -90,14 +90,6 @@
     <Compile Include="HtmlEntityTranslator.cs" />
     <Compile Include="LyricFetchers\LyricFetcher.cs" />
     <Compile Include="LyricFetchers\WwwLyricsFetcher.cs" />
-    <Compile Include="lyricsDataSet.cs">
-      <DependentUpon>lyricsDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="lyricsDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>lyricsDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="SettingBindingExtension.cs" />
     <Compile Include="SpotifyLyricHandler.cs" />
     <Page Include="MainWindow.xaml">
@@ -131,17 +123,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="lyricsDataSet.xsc">
-      <DependentUpon>lyricsDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="lyricsDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>lyricsDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="lyricsDataSet.xss">
-      <DependentUpon>lyricsDataSet.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -167,15 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="lyrics.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lyrics_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>lyrics.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
