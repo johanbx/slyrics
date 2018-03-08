@@ -55,17 +55,28 @@
       <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.7.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.7.0\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="FSharp.Core, Version=4.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FSharp.Core.4.3.4\lib\net45\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.7.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.7.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ScrapySharp.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ScrapySharp.2.6.2\lib\net45\ScrapySharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ScrapySharpAsync, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ScrapySharp.2.6.2\lib\net45\ScrapySharpAsync.dll</HintPath>
     </Reference>
     <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpotifyAPI-NET.2.17.1\lib\SpotifyAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -86,10 +97,16 @@
     </ApplicationDefinition>
     <Compile Include="DebugHelper.cs" />
     <Compile Include="HelpFunctions.cs" />
+    <Compile Include="LyricFetchModules\AzlyricQueryName.cs" />
+    <Compile Include="LyricFetchModules\AzlyricQueryNameArtist.cs" />
     <Compile Include="LyricFetchers\AzlyricsFetcher.cs" />
     <Compile Include="HtmlEntityTranslator.cs" />
     <Compile Include="LyricFetchers\LyricFetcher.cs" />
     <Compile Include="LyricFetchers\WwwLyricsFetcher.cs" />
+    <Compile Include="LyricFetchModules\AzlyricQueryPartlyName.cs" />
+    <Compile Include="LyricFetchModules\AzlyricQueryPartlyNameArtist.cs" />
+    <Compile Include="LyricFetchModules\Azlyrics.cs" />
+    <Compile Include="LyricFetchModules\LyricFetcher.cs" />
     <Compile Include="SettingBindingExtension.cs" />
     <Compile Include="SpotifyLyricHandler.cs" />
     <Page Include="MainWindow.xaml">

@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using slyrics.LyricFetchModules;
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
@@ -70,35 +71,31 @@ namespace slyrics
 
         private string FetchLyrics (Track newTrack)
         {
-            StringBuilder lyrics = new StringBuilder();
-            ILyricFetcher[] LyricFetcherPool =
+            LyricFetcher[] lyricFetcherPool =
             {
-                new LyricFetchers.AzlyricsFetcher(newTrack),
-                new LyricFetchers.WwwLyricsFetcher(newTrack)
+                new AzlyricQueryNameArtist(),
+                new AzlyricQueryPartlyNameArtist(),
+                // new AzlyricQueryName(),
+                // new AzlyricQueryPartlyName()
             };
 
-            foreach (ILyricFetcher LyricFetcher in LyricFetcherPool)
+            foreach (LyricFetcher lyricFetcher in lyricFetcherPool)
             {
-                lyrics.Clear();
-                Debug.WriteLine(LyricFetcher.GetType());
+                Debug.WriteLine(String.Format("Fetching with: {0}", lyricFetcher.GetType()));
+
                 try
                 {
-                    lyrics.Append(LyricFetcher.Lyrics());
-                    break;
+                    LyricFetcherItem item = lyricFetcher.Lyric(newTrack);
+                    if (item.status)
+                        return item.lyric;
                 }
                 catch (Exception ex)
                 {
-                    lyrics.AppendLine(STRING_LYRIC_FETCH_FAIL_MSG);
-                    if (DebugHelper.InDebug())
-                    {
-                        lyrics.AppendLine("\nDebug: ");
-                        lyrics.AppendLine(ex.ToString());
-                        Debug.WriteLine(ex.ToString());
-                    }
+                    Debug.WriteLine(ex);
                 }
             }
 
-            return lyrics.ToString();
+            return STRING_LYRIC_FETCH_FAIL_MSG;
         }
     }
 }
