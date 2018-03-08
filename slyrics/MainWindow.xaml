@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:slyrics"
         xmlns:my="clr-namespace:slyrics"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Slyrics by Johan Borgenstierna" 
         Height="{my:SettingBinding Height}" 
         Width="{my:SettingBinding Width}"
         Left="{my:SettingBinding Left}"
@@ -20,6 +20,6 @@
             Margin="10" 
             TextAlignment="Center" 
             TextWrapping="Wrap" 
-            Text="TextBlock"/>
+            Text="Waiting for Spotify to start..."/>
     </ScrollViewer>
 </Window>

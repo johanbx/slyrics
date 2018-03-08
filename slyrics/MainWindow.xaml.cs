@@ -32,21 +32,37 @@ namespace slyrics
     {
         SpotifyLyricHandler _spotify;
 
+        private async Task WaitForSpotifyReady ()
+        {
+            SpotifyLocalAPI spotify_connect = new SpotifyLocalAPI();
+
+            while (!SpotifyLocalAPI.IsSpotifyRunning() || !SpotifyLocalAPI.IsSpotifyWebHelperRunning())
+            {
+                await Task.Delay(25);
+            }
+
+            while (!spotify_connect.Connect())
+            {
+                await Task.Delay(25);
+            }
+
+            Spotify = new SpotifyLyricHandler(spotify_connect, this);
+            Spotify.Update();
+        }
+
         public MainWindow ()
         {
             InitializeComponent();
-            SpotifyLocalAPI spotify_connect = new SpotifyLocalAPI();
-            if (!SpotifyLocalAPI.IsSpotifyRunning())
-                return;
-            if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
-                return;
-
-            if (!spotify_connect.Connect())
-                return;
-
-            Spotify = new SpotifyLyricHandler(spotify_connect, this);
             
-            UpdateUI();
+
+            //TODO test this function, it is untested atm
+            if (!SpotifyLocalAPI.IsSpotifyInstalled())
+            {
+                textArea.Text = "Error: Can't find any installation of Spotify";
+                return;
+            }
+
+            Task.Run(async () => await WaitForSpotifyReady());
         }
 
         internal SpotifyLyricHandler Spotify { get => _spotify; set => _spotify = value; }

@@ -34,11 +34,9 @@ namespace slyrics
             _spotify = spotify_connect;
             _spotify.ListenForEvents = true;
             _spotify.OnTrackChange += ChangeLyrics;
-
-            Update();
         }
 
-        private void Update()
+        public void Update()
         {
             currentSong = STRING_LOADING;
             currentArtist = STRING_LOADING;
