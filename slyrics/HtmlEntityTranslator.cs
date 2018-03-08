@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace slyrics
@@ -278,21 +279,20 @@ namespace slyrics
 
         public static string Descape(string data)
         {
-            string[] words = data.Split(' ');
-
-            for (int key = 0; key < words.Length; ++key)
+            foreach (KeyValuePair<string, string> entity in dict)
             {
-                if (words[key].Length > 2)
-                {
-                    string fixWord = words[key].Substring(1, words[key].Length - 1);
-                    if (HtmlEntityTranslator.IsEntity(fixWord))
-                    {
-                        words[key] = HtmlEntityTranslator.dict[fixWord];
-                    }
-                }
+                data = data.Replace('&' + entity.Key + ';', entity.Value);
             }
 
-            return string.Join(" ", words);
+            return data;
+        }
+
+        public static string RemoveBrackets(string data)
+        {
+            Regex rgx = new Regex(@"\[.*?\]");
+            return rgx.Replace(data, "");
+
+            // return data.Replace('&' + entity.Key + ';', entity.Value);
         }
     }
 }
