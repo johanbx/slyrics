@@ -75,6 +75,7 @@ namespace slyrics
             {
                 new MusixmatchQueryNameArtist(),
                 new AzlyricQueryNameArtist(),
+                new MusixmatchQueryPartlyNameArtist(),
                 new AzlyricQueryPartlyNameArtist(),
                 new MusixmatchQueryName(),
 

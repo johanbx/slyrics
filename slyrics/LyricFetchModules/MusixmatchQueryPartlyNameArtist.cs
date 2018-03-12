@@ -1,13 +1,13 @@
-﻿using System;
+﻿using SpotifyAPI.Local.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SpotifyAPI.Local.Models;
 
 namespace slyrics.LyricFetchModules
 {
-    class AzlyricQueryPartlyNameArtist : Azlyrics
+    public class MusixmatchQueryPartlyNameArtist : Musixmatch
     {
         public override LyricFetcherItem Lyric (Track track)
         {
@@ -17,9 +17,9 @@ namespace slyrics.LyricFetchModules
             {
                 songName = songName.Replace(' ', '+');
                 string artistName = track.ArtistResource.Name.Replace(' ', '+');
-                string searchQuery = BASE_QUERY + songName + "+by+" + artistName;
+                string searchQuery = BASE_QUERY + songName + "+" + artistName;
 
-                return GetLyricFromAzyl(searchQuery);
+                return GetLyricFromMusixmatch(searchQuery);
             }
 
             return new LyricFetcherItem();

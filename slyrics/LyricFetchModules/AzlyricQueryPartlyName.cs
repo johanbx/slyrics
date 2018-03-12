@@ -11,11 +11,11 @@ namespace slyrics.LyricFetchModules
     {
         public override LyricFetcherItem Lyric (Track track)
         {
-            int indexOfSplitChar = track.TrackResource.Name.LastIndexOf(" -");
+            string songName = PartByDash(track.TrackResource.Name);
 
-            if (indexOfSplitChar != -1)
+            if (songName != null)
             {
-                string songName = track.TrackResource.Name.Substring(0, indexOfSplitChar).Replace(' ', '+');
+                songName = songName.Replace(' ', '+');
                 string searchQuery = BASE_QUERY + songName;
 
                 return GetLyricFromAzyl(searchQuery);

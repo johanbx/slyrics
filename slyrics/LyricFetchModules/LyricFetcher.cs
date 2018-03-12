@@ -22,6 +22,24 @@ namespace slyrics.LyricFetchModules
             currentLyric = new LyricFetcherItem();
         }
 
+        public string FinalizeLyric(string lyric)
+        {
+            lyric = HtmlEntityTranslator.Descape(lyric);
+            lyric = HtmlEntityTranslator.RemoveBrackets(lyric);
+            lyric = lyric.Trim();
+
+            return lyric;
+        }
+
+        public string PartByDash (string _string, string splitWith = " -")
+        {
+            int dashIndex = _string.LastIndexOf(splitWith);
+            if (dashIndex == -1)
+                return null;
+
+            return _string.Substring(0, dashIndex);
+        }
+
         public abstract LyricFetcherItem Lyric (Track track);
     }
 

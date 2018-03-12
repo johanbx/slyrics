@@ -12,9 +12,9 @@
         Left="{my:SettingBinding Left}"
         Top="{my:SettingBinding Top}">
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Left">
+        <!--DockPanel DockPanel.Dock="Top" HorizontalAlignment="Left">
             <Button Background="Yellow" Click="Button_Click">Change Lyrics</Button>
-        </DockPanel>
+        </-->
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0">
             <TextBox 
                 Background="Transparent" 

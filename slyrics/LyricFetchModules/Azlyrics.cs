@@ -33,9 +33,7 @@ namespace slyrics.LyricFetchModules
                 lyricHref = page.Html.CssSelect(HREF_CSS).ToArray()[0].GetAttributeValue("href");
                 page = browser.NavigateToPage(new Uri(lyricHref));
 
-                lyric = page.Html.CssSelect(LYRIC_CSS).ToArray()[0].InnerText;
-                lyric = HtmlEntityTranslator.Descape(lyric);
-                lyric = HtmlEntityTranslator.RemoveBrackets(lyric);
+                lyric = FinalizeLyric(lyric);
 
                 status = true;
             }

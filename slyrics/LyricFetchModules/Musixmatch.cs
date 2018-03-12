@@ -33,10 +33,9 @@ namespace slyrics.LyricFetchModules
                 page = browser.NavigateToPage(new Uri(lyricHref));
 
                 HtmlNode[] lyricContainer = page.Html.CssSelect(LYRIC_CSS).ToArray();
-
                 lyric = lyricContainer[0].InnerText + lyricContainer[1].InnerText;
-                lyric = HtmlEntityTranslator.Descape(lyric);
-                lyric = HtmlEntityTranslator.RemoveBrackets(lyric);
+
+                lyric = FinalizeLyric(lyric);
 
                 status = true;
             }
