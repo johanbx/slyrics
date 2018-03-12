@@ -99,10 +99,7 @@
     <Compile Include="HelpFunctions.cs" />
     <Compile Include="LyricFetchModules\AzlyricQueryName.cs" />
     <Compile Include="LyricFetchModules\AzlyricQueryNameArtist.cs" />
-    <Compile Include="LyricFetchers\AzlyricsFetcher.cs" />
     <Compile Include="HtmlEntityTranslator.cs" />
-    <Compile Include="LyricFetchers\LyricFetcher.cs" />
-    <Compile Include="LyricFetchers\WwwLyricsFetcher.cs" />
     <Compile Include="LyricFetchModules\AzlyricQueryPartlyName.cs" />
     <Compile Include="LyricFetchModules\AzlyricQueryPartlyNameArtist.cs" />
     <Compile Include="LyricFetchModules\Azlyrics.cs" />
