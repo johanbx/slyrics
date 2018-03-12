@@ -73,8 +73,11 @@ namespace slyrics
         {
             LyricFetcher[] lyricFetcherPool =
             {
+                new MusixmatchQueryNameArtist(),
                 new AzlyricQueryNameArtist(),
                 new AzlyricQueryPartlyNameArtist(),
+                new MusixmatchQueryName(),
+
                 // new AzlyricQueryName(),
                 // new AzlyricQueryPartlyName()
             };

@@ -107,6 +107,9 @@
     <Compile Include="LyricFetchModules\AzlyricQueryPartlyNameArtist.cs" />
     <Compile Include="LyricFetchModules\Azlyrics.cs" />
     <Compile Include="LyricFetchModules\LyricFetcher.cs" />
+    <Compile Include="LyricFetchModules\MusixmatchQueryName.cs" />
+    <Compile Include="LyricFetchModules\Musixmatch.cs" />
+    <Compile Include="LyricFetchModules\MusixmatchQueryNameArtist.cs" />
     <Compile Include="SettingBindingExtension.cs" />
     <Compile Include="SpotifyLyricHandler.cs" />
     <Page Include="MainWindow.xaml">
